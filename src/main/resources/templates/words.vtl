@@ -1,0 +1,8 @@
+<h1>Word List<h1>
+
+<ul>
+  #foreach ($word in $words)
+    <li><a href="/words/$word.getID()">$word.getSpelling()</a></li>
+  #end
+</ul>
+<a href="/words/new">Add New Word</a>

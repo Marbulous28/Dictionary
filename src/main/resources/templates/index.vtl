@@ -1,20 +1,4 @@
-<h1>Words!</h1>
+<h1>Words:</h1>
 
-#if ($words)
-  <ul>
-    #foreach ($word in $words)
-      <li>$word.getSpelling()</li>
-    #end
-  </ul>
-#else
-  <p>No Words!</p>
-#end
-
-<p>Add a new Word:</p>
-
-<form action="/wordInput" method="post">
-  <label for="word">Word</label>
-  <input id="word" name="word" type="text">
-
-  <button type="submit" class="btn btn-danger">Add This Word</button>
-</form>
+<a href="/wordInput/new">Add a new word</a>
+<a href="/wordInput">View words</a>

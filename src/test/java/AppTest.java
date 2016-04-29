@@ -26,30 +26,48 @@ public class AppTest extends FluentTest {
   @Test
   public void WordIsCreatedTest() {
     goTo("http://localhost:4567/");
+    click("a", withText("Add a new word"));
     fill("#word").with("Hi");
     submit(".btn");
+    click("a", withText("View words"));
     assertThat(pageSource()).contains("Your word has been added to the dictionary!");
   }
 
   @Test
   public void WordIsDisplayedOnIndexTest() {
-    goTo("http://localhost:4567/");
+    goTo("http://localhost:4567/wordInput/new");
     fill("#word").with("Hello");
     submit(".btn");
-    click("a", withText("Return to previous page"));
+    click("a", withText("View words"));
     assertThat(pageSource()).contains("Hello");
   }
 
   @Test
   public void MultipleWordsAreDisplayedOnIndexTest() {
-    goTo("http://localhost:4567/");
+    goTo("http://localhost:4567/wordInput/new");
     fill("#word").with("Hi");
     submit(".btn");
-    click("a", withText("Return to previous page"));
+    goTo("http://localhost:4567/wordInput/new");
     fill("#word").with("There");
     submit(".btn");
-    click("a", withText("Return to previous page"));
+    click("a", withText("View Words"));
     assertThat(pageSource()).contains("Hi");
     assertThat(pageSource()).contains("There");
+  }
+
+  @Test
+  public void WordShowPageDisplaysWord() {
+    goTo("http://localhost:4567/wordInput/new");
+    fill("#word").with("Hello");
+    submit(".btn");
+    click("a", withText("View Words"));
+    click("a", withText("Hello"));
+    assertThat(pageSource()).contains("Hello");
+  }
+
+  @Test
+  public void wordNotFoundMessageShown() {
+    goTo("http://localhost:4567/wordInput/999");
+    assertThat(pageSource()).contains("word not found");
   }
 }
