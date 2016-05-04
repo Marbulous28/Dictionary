@@ -3,13 +3,15 @@ import java.util.ArrayList;
 public class Word {
   private String mSpelling;
   private static ArrayList<Word> instances = new ArrayList<Word>();
-  private int mID;
+  private int mId;
+  private ArrayList <Definition> mDefinitions;
 
 
   public Word(String spelling){
     mSpelling = spelling;
     instances.add(this);
-    mID = instances.size();
+    mId = instances.size();
+    mDefinitions = new ArrayList<Definition>();
   }
 
   public String getSpelling() {
@@ -24,8 +26,16 @@ public class Word {
     instances.clear();
   }
 
-  public int getID() {
-    return mID;
+  public int getId() {
+    return mId;
+  }
+
+  public ArrayList<Definition> getDefinition() {
+    return mDefinitions;
+  }
+
+  public void addDefinition(Definition definition) {
+    mDefinitions.add(definition);
   }
 
   public static Word find(int id) {

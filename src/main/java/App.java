@@ -3,7 +3,6 @@ import java.util.HashMap;
 import spark.ModelAndView;
 import spark.template.velocity.VelocityTemplateEngine;
 import static spark.Spark.*;
-import java.util.ArrayList;
 
 public class App {
   public static void main(String[] args) {
@@ -24,25 +23,25 @@ public class App {
     }, new VelocityTemplateEngine());
 
     get("/wordInput", (request, response) -> {
-     HashMap<String, Object> model = new HashMap<String, Object>();
-     model.put("words", Word.all());
-     model.put("template", "templates/words.vtl");
-     return new ModelAndView(model, layout);
-   }, new VelocityTemplateEngine());
+      HashMap<String, Object> model = new HashMap<String, Object>();
+      model.put("words", Word.all());
+      model.put("template", "templates/words.vtl");
+      return new ModelAndView(model, layout);
+    }, new VelocityTemplateEngine());
 
-   post("/wordInput", (request,response) -> {
-    HashMap<String, Object> model = new HashMap<String, Object>();
-    String spelling = request.queryParams("word");
-    Word newWord = new Word(spelling);
-    model.put("template", "templates/success.vtl");
-    return new ModelAndView(model, layout);
+    post("/wordInput", (request,response) -> {
+      HashMap<String, Object> model = new HashMap<String, Object>();
+      String spelling = request.queryParams("word");
+      Word newWord = new Word(spelling);
+      model.put("template", "templates/success.vtl");
+      return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
 
     get("/wordInput/:id", (request, response) -> {
       HashMap<String, Object> model = new HashMap<String, Object>();
       Word word = Word.find(Integer.parseInt(request.params(":id")));
       model.put("word", word);
-      model.put("template", "templates/task.vtl");
+      model.put("template", "templates/word.vtl");
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
   }
